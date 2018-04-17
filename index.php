@@ -24,11 +24,11 @@
 					        <thead>
 					            <tr>
 					                <th></th>
-					                <th>Name</th>
-					                <th>Position</th>
-					                <th>Office</th>
-					                <th>Start date</th>
-					                <th>Salary</th>
+					                <th>ssn</th>
+					                <th>dob</th>
+					                <th>first</th>
+													<th>MI</th>
+													<th>last</th>
 					            </tr>
 					        </thead>";
 				}
@@ -46,7 +46,7 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 $(document).ready(function() {
 
-	console.log("error1");
+
 	    editor = new $.fn.dataTable.Editor( {
 	        ajax: "infograb.php",
 	        table: "#example",
@@ -67,13 +67,13 @@ $(document).ready(function() {
 	            		}
 	        ]
 	} );
-		console.log("error4");
+
 
     $('#example').on( 'click', 'tbody td', function (e) {
         var index = $(this).index();
-				console.log("error3");
+
         if ( index === 1 ) {
-            editor.bubble( this, ['ln', 'ln'], {
+            editor.bubble( this, ['fn', 'mi', 'ln'], {
                 title: 'Edit name:'
             } );
         }
@@ -85,37 +85,41 @@ $(document).ready(function() {
         else if ( index === 3 ) {
             editor.bubble( this );
         }
-        else if ( index === 4 ) {
-            editor.bubble( this, {
-                message: 'Date must be given in the format `yyyy-mm-dd`'
-            } );
-        }
-        else if ( index === 5 ) {
-            editor.bubble( this, {
-                title: 'Edit salary',
-                message: 'Enter an unformatted number in dollars ($)'
-            } );
-        }
+
     } );
+
+		var testData = [{
+                  "ssn": "98727748",
+                  "dob": "2016-02-05",
+                  "fn": "jake",
+									"mi": "a",
+									"ln": "butler"
+                }];
 
     $('#example').DataTable( {
         dom: "Bfrtip",
-        ajax: "infograb.php",
+        ajax:{
+        			url: 'infograb.php',
+        			type: 'POST',
+        			data: {
+        			json: JSON.stringify({ "data": testData })
+        			},
+        			dataSrc: 'data'
+						},
         columns: [
-            {
-                data: null,
-                defaultContent: '',
-                className: 'select-checkbox',
-                orderable: false
-            },
-            { data: null, render: function ( data, type, row ) {
-                // Combine the first and last names into a single table field
-                return data.first_name+' '+data.last_name;
-            } },
-            { data: "position" },
-            { data: "office" },
-            { data: "start_date" },
-            { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+						{//sets the checkbox
+							data: null,
+							defaultContent: '',
+							className: 'select-checkbox',
+							orderable: false
+						 },
+						{ data: "dob" },
+            { data: "ssn" },
+						{ data: "fn" },
+						{ data: "mi" },
+						{ data: "ln" },
+
+
         ],
         order: [ 1, 'asc' ],
         select: {
