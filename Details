@@ -1,0 +1,1 @@
+the site format will have a body that has a header section and footer. notice the footer being at the bottom from the use of the nested divs outerMain and main. The footer is outside of these, which is what keeps it at the bottom. also notice the style  in style.css that sets the height of of the html and body tags, and the min-height of outermain.
