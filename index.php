@@ -47,33 +47,33 @@ var editor; // use a global for the submit and return data rendering in the exam
 $(document).ready(function() {
 
 	console.log("error1");
-    editor = new $.fn.dataTable.Editor( {
-        ajax: "infograb.php",
-        table: "#example",
-        fields: [ {
-                label: "Social#:",
-                name: "ssn"},
-								{
-                label: "DOB:",
-                name: "dob"},
-								{label: "First Name:",
-                name: "fn"},
-								{
-                label: "Middle Initial:",
-                name: "mi"},
-								{
-                label: "Last Name:",
-                name: "ln"
-            		}
-        ]
-    } );
+	    editor = new $.fn.dataTable.Editor( {
+	        ajax: "infograb.php",
+	        table: "#example",
+	        fields: [ {
+	                label: "Social#:",
+	                name: "ssn"},
+									{
+	                label: "DOB:",
+	                name: "dob"},
+									{label: "First Name:",
+	                name: "fn"},
+									{
+	                label: "Middle Initial:",
+	                name: "mi"},
+									{
+	                label: "Last Name:",
+	                name: "ln"
+	            		}
+	        ]
+	} );
 		console.log("error4");
 
     $('#example').on( 'click', 'tbody td', function (e) {
         var index = $(this).index();
 				console.log("error3");
         if ( index === 1 ) {
-            editor.bubble( this, ['first_name', 'last_name'], {
+            editor.bubble( this, ['ln', 'ln'], {
                 title: 'Edit name:'
             } );
         }
